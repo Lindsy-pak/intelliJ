@@ -1,0 +1,9 @@
+package com.lindsy.spring;
+
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface UserMapper {
+    int insUser(UserEntity param);
+
+}
