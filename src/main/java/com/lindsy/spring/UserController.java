@@ -2,8 +2,10 @@ package com.lindsy.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user") /* 1차 주소값 아무것도 안적으면 자동으로 get방식으로 날아간다*/
@@ -14,9 +16,23 @@ public class UserController {
 
 //    method=RequestMethod.POST : post방식으로 보낼때 적어준다.
     @RequestMapping("/login") /* 2차 주소값*/
-    public String login() {
+    public String login(@RequestParam(value = "err", defaultValue = "0") int err, Model model) {
+        switch (err) { //case 0:은 처리해줄 필요 없다. 
+            case 1: //아이디 없음
+                model.addAttribute("errMsg", "아이디를 확인 해 주세요"); //request.setAttribute("errMsg", "아이디를 확인 해 주세요");
+                break;
+            case 2: //비밀번호 틀림
+                model.addAttribute("errMsg", "비밀번호를 확인 해 주세요");
+                break;
+        }
         return "user/login";
     }
+
+    @RequestMapping(value = "/login", method=RequestMethod.POST)
+    public String login(UserEntity param) {
+        return "redirect:" + service.login(param);
+    }
+
 
     @RequestMapping(value="/join") /* get방식 */
     public String join() {
