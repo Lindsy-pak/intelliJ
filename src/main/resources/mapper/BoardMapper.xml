@@ -11,4 +11,13 @@
         ORDER BY iboard DESC
     </select>
 
+    <select id="selBoard" resultType="BoardDomain">
+        SELECT A.iboard, A.title, A.iuser, A.ctnt, A.regdt,
+               B.unm AS writerNm, B.profileImg
+        FROM t_board AS A
+        LEFT JOIN t_user AS B
+        ON A.iuser = B.iuser
+        WHERE A.iboard = #{iboard}
+    </select>
+
 </mapper>

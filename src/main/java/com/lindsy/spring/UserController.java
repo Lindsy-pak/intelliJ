@@ -7,12 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/user") /* 1차 주소값 아무것도 안적으면 자동으로 get방식으로 날아간다*/
 public class UserController {
 
     @Autowired /* UserService 타입의 service 객체 주소값을 자동으로 연결시켜준다 */
     private UserService service;
+
+    @Autowired
+    private HttpSession session;
 
 //    method=RequestMethod.POST : post방식으로 보낼때 적어준다.
     @RequestMapping("/login") /* 2차 주소값*/
