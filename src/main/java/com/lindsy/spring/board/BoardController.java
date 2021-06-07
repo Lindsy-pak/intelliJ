@@ -38,6 +38,9 @@ public class BoardController {
     @RequestMapping(value = "/cmtInsSel", method = RequestMethod.POST)
     public Map<String, Integer> cmtInsSel(@RequestBody BoardCmtEntity param) {
         System.out.println("param" + param );
+
+        int result = service.insBoardCmt(param);
+
         Map<String, Integer> data = new HashMap<>();
         /*리스트처럼 방이 만들어지지만 리스트처럼 순서가 없고 result와 age라는 키값에 값이 저장*/
         /* Map은 forEach문을 돌릴수 없다 list배열은 가능함 */
@@ -47,7 +50,32 @@ public class BoardController {
 
         return data;
     }
+    @ResponseBody
+    @RequestMapping(value = "/cmtIns", method = RequestMethod.POST)
+    public List<BoardDomain> cmtIns(BoardCmtEntity param) {
+        System.out.println("param" + param ); /*iboard값이 넘어오는지만 체크*/
+        BoardDomain bd = new BoardDomain();
+        bd.setIboard(1);
+
+        BoardDomain bd2 = new BoardDomain();
+        bd2.setIboard(3);
+
+        list.add(bd);
+        list.add(bd2);
+
+        return list;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/cmtInsSel", method = RequestMethod.POST)
+    public List<BoardCmtDomain> cmtSel(BoardCmtEntity param) {
+        return service.selBoardCmtList(param);
+    }
+
+
 }
+
+
 
 
 

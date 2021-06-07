@@ -16,9 +16,13 @@ function regAjax(param) {
 	const init = {
 		method: 'POST',
 		body: JSON.stringify(param)
+		heaers:{
+			'accept' : 'application/json',
+			'content-type' : 'application/json;charset=UTF-8'
+		}
 	};
 
-	fetch('cmtInsSel', init)
+	fetch('cmtIns', init)
 		.then(function(res) { /*promise객체를 리턴해 준다. */
 			return res.json();
 		})
