@@ -10,6 +10,6 @@ public interface BoardCmtMapper {
     int insBoardCmt(BoardCmtEntity param);
     abstract List<BoardCmtDomain> selBoardCmtList(BoardCmtDomain param); /*댓글의 여러줄만 정보를 가져오기 때문에 List*/
 //    abstract는 interface라면 무조건
-
-
+    int updBoardCmt(BoardCmtEntity param);
+    int delBoardCmt(BoardCmtEntity param);
 }

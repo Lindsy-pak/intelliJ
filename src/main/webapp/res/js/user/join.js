@@ -17,6 +17,7 @@ btnChkIdElem.addEventListener('click', function() { //이벤트 바인딩
 function idChkAjax(uid) {
 	console.log(uid);
 	/*ajax로 json파일을 통해 연결하는 방법 */
+
 	fetch('/user/idChk?uid=' + uid)
 		.then(function(res) {
 			return res.json();

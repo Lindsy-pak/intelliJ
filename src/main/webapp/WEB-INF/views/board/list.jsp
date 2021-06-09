@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>list</title>
-    <link rel="stylesheet" href="/res/css/boardList.css">
+    <link rel="stylesheet" href="/res/css/board/list.css">
     <link rel="stylesheet" href="/res/css/common.css">
-    <script defer src="/res/js/boardList.js"></script>
+    <script defer src="/res/js/board/list.js"></script>
 </head>
 <body>
 
 <h1>Fucking Spring List</h1>
-<div>로그인 아이디 : ${sessionScope.loginUser.uid}</div>
+<div>
+    <span>로그인 아이디 : ${sessionScope.loginUser.uid}</span>
+    <span><a href="/user/login">프로필</a> </span>
+</div>
     <table>
         <tr>
             <th>번호</th>
@@ -34,12 +37,12 @@
                 </td>
 
                 <c:choose>
-                    <c:when test="${empty item.profileImg}">
-                        <c:set var="img" value="/res/img/noprofile.jpg"/>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="img" value="/res/img/user/${item.iuser}/${item.profileImg}"/>
-                    </c:otherwise>
+                        <c:when test="${empty item.profileImg}">
+                            <c:set var="img" value="/res/img/noprofile.jpg"/>
+                        </c:when>
+                         <c:otherwise>
+                             <c:set var="img" value="/res/img/user/${item.iuser}/${item.profileImg}" />
+                        </c:otherwise>
                 </c:choose>
 
                 <td>

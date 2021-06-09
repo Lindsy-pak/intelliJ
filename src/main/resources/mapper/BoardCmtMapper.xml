@@ -4,20 +4,31 @@
 
 <mapper namespace="com.lindsy.spring.board.BoardCmtMapper">
     <insert id="insBoardCmt">
-        INSERT INTO t_board_cmt (iboard, iuser, cmt)
+        INSERT INTO t_board_cmt
+            (iboard, iuser, cmt)
         VALUES
         (#{iboard}, #{iuser}, #{cmt});/* 괄호 안의 값은 BoardCmtEntity의 멤버 필드명이다*/
         /* 멤버필드명과 데이터베이스 컬럼명을 똑같이 맞춰준다. */
     </insert>
     <select id="selBoardCmtList" resultType="BoardCmtDomain">/*selset는 무조건 resultType을 꼭!!! 적어줘야한다.*/
-    SELECT A.icmt, A.iuser, A.cmt, A.regdate,
-           B.unm AS writerNm, B.profileImg
-    FROM t_board_cmt A
-    INNER JOIN t_user B
-    ON A.iuser =B.iuser
-    WHERE A.iboard = #{iboard}
-    ORDER BY A.icmt
-
+        SELECT A.icmt, A.iuser, A.cmt, A.regdate,
+               B.unm AS writerNm, B.profileImg
+        FROM t_board_cmt A
+        INNER JOIN t_user B
+        ON A.iuser =B.iuser
+        WHERE A.iboard = #{iboard}
+        ORDER BY A.icmt
     </select>
+
+    <update id="updBoardCmt">
+        UPDATE t_board_cmt
+        SET cmt = #{cmt}
+        WHERE icmt = #{icmt} AND iuser = #{iuser}
+    </update>
+
+    <delete id="delBoardCmt">
+        DELETE FROM t_board_cmt
+        WHERE icmt = #{icmt} AND iuser = #{iuser}
+    </delete>
 
 </mapper>

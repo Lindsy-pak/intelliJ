@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- tiles파일의 setting 하는 파일 -->
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="basic_template" template="/WEB-INF/views/tilesTemplate.jsp">
+        <put-attribute name="header" value="/WEB-INF/view/tilesHeader.jsp" />
+    </definition>
+    <!-- */* 파일 리턴값 (컨트롤러에서 return되는 주소값)1차 2차 리턴값 -->
+    <definition name="*/*" extends = "basic_template">
+        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+        <put-attribute name="res" value="/res/js/{1}/{2}.js" />
+    </definition>
+</tiles-definitions>
+

@@ -3,10 +3,9 @@ package com.lindsy.spring;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -49,5 +48,18 @@ public class UserController {
         System.out.println("uid" + param);
         service.join(param);
         return "redirect:/user/login";/* redirect -> response.sendRedirect의 기능을 한다.*/
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession hs, HttpServletRequest req) {
+        hs.invalidate();
+        String referer = req.getHeader("Referer");/* referer : 전페이지 어디서 왓는지 */
+        return "redirect:" + referer;
+        //return "redirect:/user/login";
+    }
+
+    @GetMapping("profile")
+    public void profile() {
+
     }
 }

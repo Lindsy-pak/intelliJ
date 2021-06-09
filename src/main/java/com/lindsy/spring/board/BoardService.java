@@ -25,6 +25,7 @@ public class BoardService {
     public BoardDomain selBoard(BoardDTO param) {
         return mapper.selBoard(param);
     }
+
     public int insBoardCmt(BoardCmtEntity param) {
         UserEntity loginUser = (UserEntity)  session.getAttribute("loginUser");
         param.setIuser(loginUser.getIuser());
@@ -33,5 +34,30 @@ public class BoardService {
 
     public List<BoardCmtDomain> selBoardCmtList(BoardCmtEntity param) {
         return cmtMapper.selBoardCmtList(param);
+    }
+
+    public int updBoardCmt(BoardCmtEntity param) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        param.setIuser(loginUser.getIuser());
+        return cmtMapper.updBoardCmt(param);
+    }
+
+    public int delBoardCmt(BoardCmtEntity param) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        param.setIuser(loginUser.getIuser());
+        return cmtMapper.delBoardCmt(param);
+    }
+
+    public int writeMod(BoardEntity param) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        param.setIuser(loginUser.getIuser());
+
+        if (param.getIboard() == 0) {
+            //등록
+            return 0;
+        }
+        //수정
+        
+        return 0;
     }
 }

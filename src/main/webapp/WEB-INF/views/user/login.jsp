@@ -11,7 +11,7 @@
     <div id="wrap">
         <div class="title">Hello</div>
         <div class="errMsg">
-            <p>${errMsg}</p>
+            <p>${requestScope.errMsg}</p>
         </div>
         <form action="login" method="post">
             <div>
@@ -24,7 +24,7 @@
                 <span><input type="submit" value="Login"></span>
             </div>
         </form>
-        <span><a href="/user/join"><button>Join</button></a></span>
+
     </div>
 </body>
 </html>

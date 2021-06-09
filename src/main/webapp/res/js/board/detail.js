@@ -15,14 +15,14 @@ function regCmt() {
 function regAjax(param) {
 	const init = {
 		method: 'POST',
-		body: JSON.stringify(param)
+		body: JSON.stringify(param),
 		heaers:{
 			'accept' : 'application/json',
 			'content-type' : 'application/json;charset=UTF-8'
 		}
 	};
 
-	fetch('cmtIns', init)
+	fetch('cmt', init)
 		.then(function(res) { /*promise객체를 리턴해 준다. */
 			return res.json();
 		})
@@ -30,22 +30,22 @@ function regAjax(param) {
 			console.log(myJson);
 
 			switch(myJson.result) {
-				case 0: 
+				case 0: //등록 실패
 					alert('등록 실패!');
 					break;
 				case 1: //등록 성공
 					cmtFrmElem.cmt.value = ''; /*댓글창을 작성한 뒤에 기존에 적혀져있는 내용으 지우고 refresh하는 기능*/
-
 					getListAjax();
 					break;
 			}
 		});
 }
+
 //서버에게 댓글 리스트 자료 달라고 요청하는 함수
 function getListAjax() {
 	var iboard = cmtListElem.dataset.iboard;
 
-	fetch('cmtInsSel?iboard=' + iboard)
+	fetch('cmt/ ' + iboard)
 		.then(function(res) {
 			return res.json();
 		})
@@ -56,20 +56,6 @@ function getListAjax() {
 		});
 }
 
-//서버에게 댓글 리스트 자료 달라고 요청하는 함수
-function getListAjax() {
-	var iboard = cmtListElem.dataset.iboard;
-
-	fetch('cmtInsSel?iboard=' + iboard)
-		.then(function(res) {
-			return res.json();
-		})
-		.then(function(myJson) {
-			console.log(myJson);
-
-			makeCmtElemList(myJson);
-		});
-}
 // ajax 로 화면 구현하기 위해서 보여주는 거 (서버로 부터 json형태로 객체로 만들어서 보여줄려고)
 // 페이스북처럼 리프레쉬 없이 화면 만드는법
 function makeCmtElemList(data) { //list table을 html이 아닌 script로 만드는 방법
@@ -96,7 +82,7 @@ function makeCmtElemList(data) { //list table을 html이 아닌 script로 만드
 	tableElem.append(trElemTitle);
 	cmtListElem.append(tableElem);
 
-	var loginUserPk = cmtListElem.dataset.login_user_pk;
+	var loginUserPk = cmtListElem.dataset.loginUserPk;
 
 	//table에서 tr반복하는 부분
 	//callback 함수로 부름 (내가 보낸 함수를 부르는 함수)
@@ -107,7 +93,7 @@ function makeCmtElemList(data) { //list table을 html이 아닌 script로 만드
 		var tdElem3 = document.createElement('td');
 		var tdElem4 = document.createElement('td');
 
-		tdElem1.append(item.cmt);
+		tdElem1.innerText = item.cmt;
 		tdElem2.append(item.writerNm);
 		tdElem3.append(item.regdate);
 
@@ -146,7 +132,7 @@ function makeCmtElemList(data) { //list table을 html이 아닌 script로 만드
 }
 
 function delAjax(icmt) {
-	fetch('cmtDelUpd?icmt=' + icmt)//fetch: 메소드 호출(promise객체)
+	fetch('cmt/' + icmt, { method: 'DELETE'})//fetch: 메소드 호출(promise객체)
 		.then(function(res) { //then이라는 키워드를 쓰는 이유 : 호출한거에서 (결과값).then 그리고 나서
 			return res.json();
 		})
@@ -168,7 +154,7 @@ function modAjax() {
 	var cmtModFrmElem = document.querySelector('#cmtModFrm');
 	var param = {
 		icmt: cmtModFrmElem.icmt.value,
-		cmt: cmtModFrmElem.cmt.value
+		cmt: cmtModFrmElem.modCmt.value
 	}
 
 	const init = {

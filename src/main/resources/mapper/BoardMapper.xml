@@ -3,10 +3,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.lindsy.spring.board.BoardMapper">
+
+    <insert id="insBoard">
+        INSERT INTO t_board
+        (title, ctnt, iuser)
+        VALUES
+        (#{title}, #{ctnt}, #{iuser})
+    </insert>
+
+
     <select id="selBoardList" resultType="BoardDomain">
-        SELECT A.iboard, A.title, A.iuser, A.regdt, B.unm AS writerNm, B.profileImg
-        FROM t_board AS A
-        LEFT JOIN t_user AS B
+        SELECT A.iboard, A.title, A.iuser, A.regdt,
+               B.unm AS writerNm, B.profileImg
+        FROM t_board A
+        LEFT JOIN t_user B
         ON A.iuser = B.iuser
         ORDER BY iboard DESC
     </select>
@@ -14,8 +24,8 @@
     <select id="selBoard" resultType="BoardDomain">
         SELECT A.iboard, A.title, A.iuser, A.ctnt, A.regdt,
                B.unm AS writerNm, B.profileImg
-        FROM t_board AS A
-        LEFT JOIN t_user AS B
+        FROM t_board A
+        LEFT JOIN t_user B
         ON A.iuser = B.iuser
         WHERE A.iboard = #{iboard}
     </select>
